@@ -1,0 +1,94 @@
+==================================================
+TEST EMAIL 1: KLACHT (NEGATIVE)
+==================================================
+
+Beste klantenservice,
+
+Ik ben zeer ontevreden over jullie product. Ik heb vorige week een laptop besteld
+die al na 2 dagen kapot ging. Ik heb al 3 keer gebeld maar niemand neemt op.
+Dit is echt onacceptabel! Ik wil mijn geld terug of een werkend apparaat.
+
+Ik verwacht binnen 24 uur een reactie, anders schakel ik een advocaat in.
+
+Met vriendelijke groet,
+Jan Jansen
+
+==================================================
+TEST EMAIL 2: VERZOEK (NEUTRAL)
+==================================================
+
+Goedemiddag,
+
+Ik zou graag mijn abonnement willen opzeggen per 1 januari 2025.
+Kunnen jullie bevestigen dat dit gelukt is?
+
+Ook wil ik weten of ik nog een eindafrekening krijg.
+
+Alvast bedankt voor jullie medewerking.
+
+Met vriendelijke groet,
+Maria de Vries
+
+==================================================
+TEST EMAIL 3: INFORMATIEAANVRAAG (POSITIVE)
+==================================================
+
+Hallo team,
+
+Ik ben heel enthousiast over jullie nieuwe producten!
+Ik zou graag meer informatie ontvangen over:
+- Prijzen
+- Levertijden
+- Garantievoorwaarden
+
+Kunnen jullie me een brochure sturen?
+
+Heel erg bedankt alvast!
+
+Groetjes,
+Sophie
+
+==================================================
+TEST EMAIL 4: SPAM (NEUTRAL)
+==================================================
+
+🎉 CONGRATULATIONS! YOU'VE WON $1,000,000! 🎉
+
+Click here NOW to claim your prize!!!
+
+Limited time offer - ACT FAST!
+
+www.totally-not-a-scam.com
+
+==================================================
+TEST EMAIL 5: FEEDBACK (POSITIVE)
+==================================================
+
+Beste collega's,
+
+Ik wilde even laten weten dat ik super tevreden ben over de service van
+jullie medewerker Peter. Hij heeft mijn probleem snel en vriendelijk opgelost.
+
+Dank jullie wel voor de goede service!
+
+Met vriendelijke groet,
+David Johnson
+
+==================================================
+TEST EMAIL 6: KLACHT (NEUTRAL/CONSTRUCTIEF)
+==================================================
+
+Geachte heer/mevrouw,
+
+Ik schrijf u naar aanleiding van mijn bestelling (ordernummer: 12345).
+Helaas is het product niet conform beschrijving:
+- Kleur is anders dan op foto
+- Maat komt niet overeen
+
+Ik zou graag willen retourneren en mijn geld terugkrijgen.
+Kunnen jullie een retourlabel sturen?
+
+Bedankt voor jullie begrip.
+
+Met vriendelijke groet,
+Lisa Vermeer
