@@ -1,18 +1,27 @@
 """
-Agent 2: Sentiment Analyzer
-Analyseert het sentiment en de emotionele toon van emails
+Agent 3: Sentiment & Emotion Analyzer
+Analyseert emotionele toon en escalatierisico's
+Draait PARALLEL met Agent 1 en 2
 """
 
 from crewai import Agent, Task
 from config import AGENT_CONFIG, MODEL_NAME, SENTIMENTS
+from models import SentimentAnalysis
 
 
 class SentimentAnalyzerAgent:
     """
-    Agent die het sentiment van emails analyseert:
-    - Positive (vriendelijk, positief, opbouwend)
-    - Neutral (zakelijk, neutraal)
-    - Negative (boos, gefrustreerd, ontevreden)
+    Agent die sentiment en emoties analyseert:
+    - Positive: Vriendelijk, tevreden, dankbaar
+    - Neutral: Zakelijk, informatief, neutraal
+    - Negative: Ontevreden, gefrustreerd
+    - Very_Negative: Boos, woedend, dreigend
+    
+    Ook detecteert:
+    - Escalation risk (churn risk, legal threat, PR risk)
+    - Customer satisfaction indicators
+    
+    Output: SentimentAnalysis (Pydantic model)
     """
     
     def __init__(self):
@@ -32,13 +41,12 @@ class SentimentAnalyzerAgent:
             llm=MODEL_NAME
         )
     
-    def create_task(self, email_text: str, category: str) -> Task:
+    def create_task(self, email_text: str) -> Task:
         """
         Create a sentiment analysis task for the given email
         
         Args:
             email_text: The email content to analyze
-            category: The classified category (from Agent 1)
             
         Returns:
             Task: CrewAI task object
@@ -46,32 +54,73 @@ class SentimentAnalyzerAgent:
         sentiments_str = ", ".join(SENTIMENTS)
         
         description = f"""
-        Analyseer het sentiment van de volgende email.
-        Deze email is geclassificeerd als: {category}
+        Analyseer het sentiment en de emotionele toon van de volgende email.
         
-        Email om te analyseren:
+        EMAIL OM TE ANALYSEREN:
         ---
         {email_text}
         ---
         
-        Bepaal het sentiment: {sentiments_str}
+        SENTIMENT CATEGORIEËN:
+        - Positive: Vriendelijk, tevreden, dankbaar, enthousiast, positief
+        - Neutral: Zakelijk, informatief, neutraal, geen sterke emoties
+        - Negative: Ontevreden, gefrustreerd, teleurgesteld, kritisch
+        - Very_Negative: Boos, woedend, dreigend, zeer ontevreden
         
-        Geef ALLEEN het sentiment terug als output, niets anders.
+        EMOTIONELE SIGNALEN:
         
-        Richtlijnen:
-        - Positive: Vriendelijke toon, dankbaar, opbouwend, tevreden
-        - Neutral: Zakelijke toon, informatief, geen sterke emoties
-        - Negative: Boze toon, gefrustreerd, ontevreden, veeleisend
+        1. TONE INDICATORS (Let op):
+           - Hoofdletters = SCHREEUWEN / boos
+           - Uitroeptekens!!! = frustratie of enthousiasme
+           - Sarcasme = vaak negatief sentiment
+           - Formele taal = vaak neutraal
+           - Persoonlijke toon = kan positief of negatief zijn
         
-        Let op nuances:
-        - Een klacht kan positief geformuleerd zijn
-        - Een verzoek kan dringend maar niet negatief zijn
-        - Spam is meestal neutraal (tenzij aggressive marketing)
+        2. WOORD KEUZE:
+           Positive: "dank", "geweldig", "tevreden", "blij", "uitstekend"
+           Negative: "teleurgesteld", "onacceptabel", "slecht", "nooit meer"
+           Very_Negative: "schandalig", "rechtszaak", "advocaat", "oplichters"
+        
+        3. ESCALATION RISK INDICATORS:
+           - Dreigingen: "advocaat", "rechtszaak", "aangifte", "klacht indienen"
+           - Churn signals: "contract opzeggen", "concurrent", "nooit meer"
+           - Public shaming: "social media", "reviews", "iedereen waarschuwen"
+           - Herhaald contact: "al 5x gebeld", "niemand reageert"
+        
+        4. CUSTOMER SATISFACTION LEVELS:
+           - Tevreden: Complimenten, positieve feedback, blijft klant
+           - Neutraal: Zakelijke vraag, geen emotie
+           - Ontevreden: Klacht maar beheerst, wil oplossing
+           - Zeer_Ontevreden: Woede, geen vertrouwen meer, wil weg
+        
+        5. NUANCES:
+           - Een klacht kan vriendelijk geformuleerd zijn (Negative sentiment, maar beleefde toon)
+           - Sarcasme is bijna altijd negatief
+           - "Met vriendelijke groet" na woedende email = nog steeds Very_Negative
+           - Urgentie ≠ negatief sentiment
+        
+        EMOTION SCORE BEREKENING:
+        - +1.0: Zeer positief, enthousiast, dankbaar
+        - +0.5: Positief, tevreden
+        - 0.0: Neutraal, zakelijk
+        - -0.5: Negatief, ontevreden
+        - -1.0: Zeer negatief, woedend
+        
+        VERPLICHTE OUTPUT FORMAT (JSON):
+        {{
+            "sentiment": "één van: {sentiments_str}",
+            "emotion_score": -1.0 tot +1.0 (float),
+            "escalation_risk": true/false,
+            "tone_indicators": ["lijst", "van", "emotionele", "keywords"],
+            "customer_satisfaction_indicator": "Tevreden/Neutraal/Ontevreden/Zeer_Ontevreden",
+            "reasoning": "Uitleg sentiment analyse: welke signalen zag je, waarom dit niveau"
+        }}
+        
+        Geef ALLEEN het JSON object terug, geen extra tekst.
         """
         
         return Task(
             description=description,
             agent=self.agent,
-            expected_output=f"Een enkel sentiment uit: {sentiments_str}",
-            context=[category]
+            expected_output="JSON object met sentiment analysis"
         )
