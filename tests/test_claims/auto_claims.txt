@@ -1,0 +1,207 @@
+# Test Claims: Auto Insurance (5 scenarios)
+
+## TEST 1: Simple Auto Damage - Should AUTO-APPROVE
+```
+Beste verzekering,
+
+Gisteren heb ik een kleine kras op mijn bumper gekregen door een winkelwagentje 
+op de parkeerplaats van de Albert Heijn in Amsterdam. De schade is minimaal, 
+alleen lakschade aan de achterbumper.
+
+Geschatte schade: ongeveer €450
+Polisnummer: AUTO-2024-12345
+Datum incident: 30 september 2025
+Kenteken: AA-123-BB
+Locatie: Albert Heijn parkeerplaats, Overtoom 123, Amsterdam
+
+Er waren geen getuigen, maar de schade is duidelijk zichtbaar.
+
+Met vriendelijke groet,
+Jan Janssen
+jan.janssen@email.nl
+06-12345678
+```
+
+**Expected Routing:**
+- Type: Auto (confidence: 0.95)
+- Amount: €450
+- Urgency: Low
+- Fraud Risk: Low (0.1)
+- Route: Auto-Approve
+- Template: A
+
+---
+
+## TEST 2: Medium Auto Damage - Should route to JUNIOR ADJUSTER
+```
+Geachte heer/mevrouw,
+
+Afgelopen dinsdag 26 september ben ik aangereden door een andere auto op de 
+parkeerplaats bij mijn werk. De andere bestuurder heeft mijn linker portier en 
+spatbord geraakt tijdens het uitparkeren.
+
+Geschatte schade: €1.800 (portier + spatbord + lak)
+Polisnummer: AUTO-2024-67890
+Datum: 26 september 2025, rond 17:30
+Locatie: Bedrijventerrein Zuid, Utrecht
+Kenteken mijn auto: BB-456-CC
+Kenteken andere auto: XX-789-YY
+
+De andere bestuurder heeft zijn gegevens achtergelaten:
+Naam: Piet de Vries
+Telefoon: 06-98765432
+Verzekeraar: Andere Verzekering BV
+
+Er is geen politierapport, want schade was beperkt en beide partijen waren het eens.
+
+Met vriendelijke groet,
+Maria van Dam
+maria.vandam@bedrijf.nl
+```
+
+**Expected Routing:**
+- Type: Auto (confidence: 0.98)
+- Amount: €1,800
+- Urgency: Medium
+- Fraud Risk: Low (0.15)
+- Route: Junior-Adjuster
+- Template: B
+
+---
+
+## TEST 3: High Value - Total Loss - Should route to SENIOR ADJUSTER
+```
+Geachte heer/mevrouw,
+
+Op 28 september 2025 ben ik betrokken geraakt bij een ernstig verkeersongeval 
+op de A2 ter hoogte van 's-Hertogenbosch. Een vrachtwagen is op mijn auto 
+ingereden, waardoor mijn auto total loss is. De auto is niet meer te repareren 
+en moet naar de sloop.
+
+Details:
+- Datum: 28 september 2025, 14:20 uur
+- Locatie: A2 richting Eindhoven, km 112
+- Polisnummer: AUTO-2024-11111
+- Kenteken: DD-888-EE
+- Merk/Model: Volkswagen Golf 2022
+- Cataloguswaarde: €28.000
+
+De vrachtwagen reed door rood licht en raakte mij in de zijkant. Ik heb gelukkig 
+alleen lichte verwondingen (nekklachten). De politie is ter plaatse geweest.
+
+Politierapport nummer: PL-2025-5678
+Andere partij: Transport BV, kenteken VV-123-TT
+Getuigen: 2 andere automobilisten hebben verklaring afgelegd
+
+Ik heb foto's gemaakt van de situatie en het wrak.
+
+Met vriendelijke groet,
+Thomas Bakker
+thomas.bakker@email.nl
+06-11223344
+```
+
+**Expected Routing:**
+- Type: Auto (confidence: 0.99)
+- Amount: €28,000
+- Urgency: High
+- Fraud Risk: Low (0.20)
+- Route: Senior-Adjuster
+- Template: C
+- Requires Inspection: Yes
+
+---
+
+## TEST 4: Critical Urgency - Immediate Danger - Should ESCALATE
+```
+URGENT - ACUTE SITUATIE
+
+Geachte heer/mevrouw,
+
+Mijn auto is vannacht in brand gevlogen op de oprit van mijn huis. De brandweer 
+is ter plaatse geweest en heeft de brand geblust, maar er bestaat gevaar dat de 
+auto opnieuw kan ontbranden. De brandweer heeft geadviseerd de auto direct te 
+laten weghalen.
+
+Datum incident: 1 oktober 2025, 03:30 uur
+Locatie: Hoofdstraat 45, Rotterdam
+Polisnummer: AUTO-2024-99999
+Kenteken: FF-999-GG
+Merk: Tesla Model 3 (elektrisch)
+
+De oorzaak is waarschijnlijk een defect in het elektrische systeem. Er is ook 
+schade aan mijn garagedeur (€2.000) en tuinmeubilair (€500).
+
+Auto totale schade: €45.000 (total loss)
+Extra schade: €2.500
+
+Brandweerrapport nummer: BW-2025-8888
+
+De situatie is urgent omdat:
+1. Risico op hernieuwde brand
+2. Blokkering van oprit
+3. Mogelijk gevaar voor andere voertuigen
+
+Graag zo snel mogelijk contact voor berging en verdere afhandeling.
+
+Met vriendelijke groet,
+Lisa Vermeer
+lisa.vermeer@email.nl
+06-55667788
+```
+
+**Expected Routing:**
+- Type: Auto (confidence: 0.95)
+- Amount: €47,500
+- Urgency: Critical
+- Fraud Risk: Low (0.15)
+- Has Immediate Danger: Yes
+- Route: Senior-Adjuster-Emergency
+- Template: D
+- Priority: 1
+
+---
+
+## TEST 5: Hit-and-Run - Medium Complexity - Should route to STANDARD ADJUSTER
+```
+Beste verzekering,
+
+Afgelopen weekend heb ik mijn auto geparkeerd op straat (zaterdag 23 september 
+om 20:00) en zondag 24 september om 10:00 bleek dat een andere auto tegen mijn 
+auto was aangereden en was doorgereden.
+
+Schade:
+- Rechter achterlicht verbrijzeld
+- Bumper beschadigd
+- Spatbord deuk
+
+Geschatte schade: €3.200
+
+Details:
+- Polisnummer: AUTO-2024-55555
+- Kenteken: HH-222-JJ
+- Locatie: Parkeerplaats Stationsstraat, Den Haag
+- Tijdstip: tussen zaterdagavond 20:00 en zondagochtend 10:00
+
+Ik heb aangifte gedaan bij de politie omdat de dader is doorgereden.
+Aangiftenummer: AG-2025-3333
+
+Een buurtbewoner heeft mogelijk iets gezien, maar heeft geen kenteken genoteerd.
+Ik heb foto's gemaakt van de schade.
+
+Graag verneem ik hoe de procedure verder gaat en of jullie de schade vergoeden 
+ondanks dat de dader onbekend is.
+
+Met vriendelijke groet,
+Ahmed Hassan
+ahmed.hassan@email.nl
+06-99887766
+```
+
+**Expected Routing:**
+- Type: Auto (confidence: 0.92)
+- Amount: €3,200
+- Urgency: Medium
+- Fraud Risk: Low (0.25) - Slightly elevated due to no witnesses
+- Route: Standard-Adjuster
+- Template: B

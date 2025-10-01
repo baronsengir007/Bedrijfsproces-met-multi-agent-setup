@@ -1,0 +1,245 @@
+# Test Claims: Property/Home Insurance (5 scenarios)
+
+## TEST 6: Storm Damage - Medium Value - Should route to STANDARD ADJUSTER
+```
+Geachte heer/mevrouw,
+
+Door de hevige storm van afgelopen zondag 24 september is er schade ontstaan 
+aan het dak van mijn woning. Meerdere dakpannen zijn van het dak gewaaid en er 
+is lekkage ontstaan in de slaapkamer.
+
+Schade:
+- 15 dakpannen vervangen
+- Lekkage in slaapkamer (plafond beschadigd)
+- Waterschade aan vloerbedekking
+
+Geschatte schade: €4.500
+
+Details:
+- Polisnummer: WOON-2024-22222
+- Adres: Kerkstraat 67, Zwolle
+- Datum storm: 24 september 2025
+- Type woning: Rijtjeshuis, bouwjaar 1985
+
+Ik heb de dakpannen provisorisch laten afdekken met zeilen door een aannemer 
+om verdere lekkage te voorkomen. Kosten provisorische reparatie: €350.
+
+Het KNMI heeft voor die dag code oranje afgegeven voor windstoten tot 100 km/u.
+
+Ik heb foto's gemaakt van de schade en de provisorische afdekking.
+
+Met vriendelijke groet,
+Petra Jansen
+petra.jansen@email.nl
+038-1234567
+```
+
+**Expected Routing:**
+- Type: Woning (confidence: 0.95)
+- Amount: €4,850
+- Urgency: Medium
+- Fraud Risk: Low (0.15) - Weather event verified
+- Route: Standard-Adjuster
+- Template: B
+- May require inspection
+
+---
+
+## TEST 7: Major Water Damage - High Value - Should route to SENIOR ADJUSTER
+```
+Geachte heer/mevrouw,
+
+DRINGEND - WATERSCHADE
+
+In de nacht van 29 op 30 september is er een grote waterleiding gesprongen in 
+mijn woning, waardoor de gehele begane grond onder water is komen te staan. De 
+loodgieter heeft de waterleiding kunnen afdichten, maar de schade is aanzienlijk.
+
+Schade overzicht:
+- Gehele houten vloer begane grond (laminaat, 60m²)
+- Keukenkastjes onderin doorweekt
+- Bank en 2 fauteuils onherstelbaar beschadigd
+- Wasmachine en droger defect door water
+- Elektrische installatie benedenverdieping moet vervangen
+
+Geschatte totale schade: €24.000
+
+Details:
+- Polisnummer: WOON-2024-77777
+- Adres: Lindelaan 123, Arnhem
+- Datum incident: 30 september 2025, circa 02:00 uur
+- Type woning: Vrijstaand, bouwjaar 2010
+
+De loodgieter heeft aangegeven dat de leiding door corrosie is gesprongen.
+Loodgieter: Installatiebedrijf Jansen BV
+Factuur loodgieter: €850 (noodreparatie)
+
+De schade is acuut omdat:
+- Vocht in de muren kan schimmel veroorzaken
+- Elektrische installatie onveilig
+- Woning momenteel onbewoonbaar benedenverdieping
+
+Ik verblijf tijdelijk bij familie. Is er dekking voor tijdelijke huisvesting?
+
+Graag snel een expert langs voor opname van de schade.
+
+Met vriendelijke groet,
+Robert van Dijk
+robert.vandijk@email.nl
+026-9876543
+```
+
+**Expected Routing:**
+- Type: Woning (confidence: 0.98)
+- Amount: €24,850
+- Urgency: High
+- Fraud Risk: Low (0.20)
+- Route: Senior-Adjuster
+- Template: C
+- Requires Inspection: Yes
+- Priority: 2
+
+---
+
+## TEST 8: Inbraak - Inboedel - Should route to STANDARD ADJUSTER
+```
+Beste verzekering,
+
+Op dinsdag 26 september ben ik slachtoffer geworden van een inbraak in mijn 
+woning. De inbrekers zijn via het keukenraam naar binnen gekomen en hebben 
+verschillende waardevolle spullen gestolen.
+
+Gestolen voorwerpen:
+- Laptop MacBook Pro (2023): €2.400
+- iPad: €650
+- Gouden sieraden (ketting + armband): €1.800
+- Cash geld: €350
+- Twee parfumflesjes: €200
+
+Totale schade: €5.400
+
+Daarnaast schade aan keukenraam: €450
+
+Totaal: €5.850
+
+Details:
+- Polisnummer: INBOEDEL-2024-44444
+- Adres: Molenlaan 89, Utrecht
+- Datum inbraak: tussen 26 sept 14:00 en 18:30
+- Aangiftenummer politie: POL-2025-7777
+
+Ik heb aankoopbonnen van de laptop en iPad. Voor de sieraden heb ik foto's en 
+een taxatierapport van de juwelier (waarde getaxeerd in januari 2024).
+
+De politie heeft sporenonderzoek gedaan en vingerafdrukken veiliggesteld.
+
+Graag verneem ik welke documenten jullie nog nodig hebben en hoe de procedure 
+verder verloopt.
+
+Met vriendelijke groet,
+Sophie Vermeulen
+sophie.vermeulen@email.nl
+030-3456789
+```
+
+**Expected Routing:**
+- Type: Inboedel (confidence: 0.98)
+- Amount: €5,850
+- Urgency: Medium
+- Fraud Risk: Medium (0.35) - Burglary claims have elevated baseline risk
+- Route: Standard-Adjuster
+- Template: B
+
+---
+
+## TEST 9: Suspicious Inboedel Claim - Should route to SIU INVESTIGATION
+```
+Hallo,
+
+Inbraak gehad. Laptop weg.
+
+Schatting schade: €2.200
+
+Polis: INBO-2025-888 (2 weken geleden afgesloten)
+
+Was ergens, weet niet precies wanneer. Laptop was er ineens niet meer.
+Misschien vorige week? Of week daarvoor.
+
+Geen aangifte gedaan want heeft toch geen zin.
+
+Groet
+```
+
+**Expected Routing:**
+- Type: Inboedel (confidence: 0.70)
+- Amount: €2,200
+- Urgency: Low
+- Fraud Risk: HIGH (0.75) - Multiple red flags:
+  * Recent policy (<30 days mentioned)
+  * Extremely vague description
+  * No incident date
+  * No police report
+  * No details about circumstances
+  * Minimal effort in claim
+- Route: SIU-Investigation
+- Template: D
+- Requires manager approval: Yes
+
+---
+
+## TEST 10: Fire Damage - High Value - Critical - Should ESCALATE
+```
+SPOED - BRAND IN WONING
+
+Geachte heer/mevrouw,
+
+Vannacht om 01:30 is er brand uitgebroken in mijn woning door kortsluiting in 
+de meterkast. De brandweer heeft de brand kunnen blussen, maar de schade is enorm.
+
+Schade:
+- Meterkast volledig uitgebrand
+- Elektrische installatie gehele woning defect
+- Rook- en roetschade in alle kamers
+- Keuken zwaar beschadigd
+- Meubels in woonkamer en keuken onherstelbaar
+- Plafonds en muren beschadigd
+
+Geschatte schade: €65.000
+
+Woning is op dit moment ONBEWOONBAAR verklaard door gemeente.
+
+Details:
+- Polisnummer: WOON-2024-11111
+- Adres: Bosstraat 34, Groningen
+- Datum: 1 oktober 2025, 01:30 uur
+- Type woning: Appartement, 3e verdieping
+- Brandweerrapport: BR-2025-6666
+
+URGENTE SITUATIE:
+- Woning onveilig en onbewoonbaar
+- Geen elektriciteit
+- Mogelijk structurele schade aan gebouw
+- Ik sta letterlijk op straat met mijn gezin (2 jonge kinderen)
+
+Wij verblijven nu in een hotel maar kunnen dit maximaal paar dagen betalen.
+Is er dekking voor tijdelijke huisvesting?
+
+Graag VANDAAG NOG contact voor noodopvang regeling en expert voor schadeop name.
+
+Met vriendelijke groet,
+Linda Hermans
+linda.hermans@email.nl
+050-1122334
+```
+
+**Expected Routing:**
+- Type: Woning (confidence: 0.99)
+- Amount: €65,000
+- Urgency: Critical
+- Has Immediate Danger: No (fire is out, but uninhabitable)
+- Fraud Risk: Low (0.15) - Fire department report present
+- Route: Senior-Adjuster-High-Value
+- Template: D
+- Priority: 1
+- Requires Inspection: Yes
+- Requires Manager Approval: Yes

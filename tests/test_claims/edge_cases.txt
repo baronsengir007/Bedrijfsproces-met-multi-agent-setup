@@ -1,0 +1,213 @@
+# Test Claims: Edge Cases (5 unusual scenarios)
+
+## TEST 16: Liability Claim - Damage Caused to Third Party
+```
+Geachte heer/mevrouw,
+
+Ik heb per ongeluk schade veroorzaakt aan de auto van mijn buurman. Tijdens het 
+uitparkeren op mijn oprit heb ik zijn auto geraakt die naast mijn oprit geparkeerd 
+stond.
+
+Schade aan auto buurman:
+- Linker portier flinke deuk
+- Zijspiegel gebroken
+
+Geschatte schade: €1.850
+
+Details:
+- Mijn polisnummer: WA-2024-55555
+- Datum incident: 27 september 2025
+- Locatie: Eigen oprit, Dennenlaan 45, Haarlem
+- Mijn kenteken: PP-555-RR
+- Kenteken buurman: QQ-666-SS
+
+Mijn buurman (Henk Vermeer, Dennenlaan 43) heeft aangifte gedaan bij zijn 
+verzekering en doorverwezen naar mij/mijn WA verzekering.
+
+Contactgegevens buurman: henk.vermeer@email.nl, 023-6789012
+
+Ik neem volledige verantwoordelijkheid voor de schade. Het was een ongelukje 
+tijdens het achteruitrijden.
+
+Graag verneem ik hoe de procedure verder gaat.
+
+Met vriendelijke groet,
+Sandra Willems
+sandra.willems@email.nl
+023-5678901
+```
+
+**Expected Routing:**
+- Type: Aansprakelijkheid (confidence: 0.95)
+- Amount: €1,850
+- Urgency: Medium
+- Fraud Risk: Low (0.10) - Takes full responsibility, clear details
+- Route: Standard-Adjuster
+- Template: B
+
+---
+
+## TEST 17: Unclear Type - Mixed Damage - Should Flag for Manual Classification
+```
+Beste verzekering,
+
+Er is iets gebeurd met schade. Ik weet niet precies welke verzekering dit dekt.
+
+Er is water in mijn auto gekomen door een daklek in de parkeergarage van mijn 
+appartement. De binnenkant van mijn auto is doorweekt (bekleding, matten) EN 
+de dakpannen van de garage zijn beschadigd, waar ik ook verantwoordelijk voor 
+ben als eigenaar.
+
+Schade auto interieur: €800
+Schade dakpannen garage: €1.200
+Totaal: €2.000
+
+Is dit mijn autoverzekering of mijn woonhuisverzekering? Of beide?
+
+Details:
+- Auto polis: AUTO-2024-77777
+- Woning polis: WOON-2024-88888
+- Datum: 25 september 2025 (na zware regenval)
+- Adres: Appartementscomplex De Wilgen, Rotterdam
+
+Graag advies over hoe dit te claimen.
+
+Met vriendelijke groet,
+Eric de Jong
+eric.dejong@email.nl
+010-2345678
+```
+
+**Expected Routing:**
+- Type: Unclear/Mixed (confidence: 0.45) - Involves both auto and property
+- Amount: €2,000
+- Urgency: Low
+- Fraud Risk: Low (0.15)
+- Route: Manual-Classification
+- Template: B
+- Flag: Type unclear - needs manual review
+
+---
+
+## TEST 18: International Incident - Outside Netherlands
+```
+Geachte heer/mevrouw,
+
+Tijdens mijn vakantie in Duitsland (vorige week) ben ik betrokken geraakt bij 
+een verkeersongeval. Een Duitse automobilist heeft mijn auto van achteren 
+aangereden op de Autobahn.
+
+Schade aan mijn auto: €3.400
+Locatie: A3 bij Frankfurt, Duitsland
+Datum: 22 september 2025, circa 15:00 uur
+
+De Duitse politie heeft een rapport opgemaakt.
+Duitse politie rapportnummer: DE-2025-9988
+Andere partij: Klaus Müller, Duitse kenteken: F-AB-1234
+Duitse verzekering andere partij: Allianz Deutschland
+
+Mijn Nederlandse gegevens:
+- Polisnummer: AUTO-2024-66666
+- Kenteken: LL-777-MM
+- Groene kaart meegenomen (wel geldig voor Duitsland)
+
+Ik ben inmiddels terug in Nederland. De auto is nog rijdbaar maar heeft wel 
+duidelijke schade aan achterbumper en kofferbak.
+
+Hoe moet ik dit claimen? Via de Duitse verzekering van de veroorzaker of via 
+jullie?
+
+Met vriendelijke groet,
+Anna Verhoeven
+anna.verhoeven@email.nl
+06-33445566
+```
+
+**Expected Routing:**
+- Type: Auto (confidence: 0.95)
+- Amount: €3,400
+- Urgency: Medium
+- Fraud Risk: Low (0.20)
+- Route: Standard-Adjuster (requires international claim handling)
+- Template: B
+- Note: International claim - special handling
+
+---
+
+## TEST 19: Very Low Amount - Minor Claim - Should Still Process
+```
+Beste verzekering,
+
+Hele kleine schade aan mijn auto. Een fietser is tegen mijn geparkeerde auto 
+gevallen en heeft een klein krasje gemaakt op het portier.
+
+Geschatte schade: €120 (kleine lakkering)
+
+Details:
+- Polisnummer: AUTO-2024-44444
+- Datum: 29 september 2025
+- Locatie: Fietsenstalling bij station, Leiden
+- Kenteken: NN-888-PP
+
+De fietser heeft zijn excuses aangeboden en zijn gegevens gegeven, maar ik wil 
+dit liever via mijn eigen verzekering regelen om gedoe te voorkomen.
+
+Eigen risico is €150, dus dit wordt niet vergoed, begrijp ik. Maar ik wilde het 
+toch melden voor de administratie.
+
+Met vriendelijke groet,
+David Smit
+david.smit@email.nl
+071-9876543
+```
+
+**Expected Routing:**
+- Type: Auto (confidence: 0.90)
+- Amount: €120
+- Urgency: Low
+- Fraud Risk: Low (0.05)
+- Route: Junior-Adjuster (administrative processing)
+- Template: B
+- Note: Below deductible - for administrative record only
+
+---
+
+## TEST 20: No Amount Specified - Information Needed
+```
+Geachte heer/mevrouw,
+
+Ik wil graag een claim indienen voor schade aan mijn auto, maar ik weet nog niet 
+precies hoeveel de schade gaat kosten. De garage moet de auto nog opnemen.
+
+Wat er gebeurd is:
+Op 28 september ben ik tijdens het parkeren tegen een betonnen paal gereden. 
+Er is schade aan de voorbumper, koplamp en mogelijk ook aan de radiateur (de 
+garage vermoedt dit).
+
+Details:
+- Polisnummer: AUTO-2024-22222
+- Kenteken: OO-123-PP
+- Datum: 28 september 2025
+- Locatie: Parkeergarage Centraal Station, Den Haag
+
+De garage (Autobedrijf Jansen, Den Haag) gaat volgende week dinsdag de auto 
+onderzoeken en zal dan een offerte maken.
+
+Kan ik de claim alvast indienen zonder exact bedrag, en het bedrag later 
+aanvullen? Of moet ik wachten tot ik de offerte heb?
+
+Met vriendelijke groet,
+Fatima Aziz
+fatima.aziz@email.nl
+070-8765432
+```
+
+**Expected Routing:**
+- Type: Auto (confidence: 0.95)
+- Amount: None/Unknown
+- Urgency: Low
+- Fraud Risk: Low (0.15)
+- Route: Junior-Adjuster
+- Template: B
+- Note: Amount to be determined - follow-up needed
+- Action: Request customer to submit quote when available

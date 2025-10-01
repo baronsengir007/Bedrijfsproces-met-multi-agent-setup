@@ -1,0 +1,183 @@
+# Test Claims: Fraud Scenarios (5 high-risk claims)
+
+## TEST 11: Recent Policy + Vague Details + Strategic Amount - HIGH FRAUD RISK
+```
+Hallo,
+
+Auto schade. Kras en deuk.
+
+Bedrag: €9.950
+
+Polis net afgesloten (3 weken geleden): AUTO-2025-NEW1
+
+Gebeurd ergens vorige week. Weet niet meer precies waar.
+
+Groet
+```
+
+**Expected Routing:**
+- Type: Auto (confidence: 0.60) - Limited info
+- Amount: €9,950
+- Urgency: Low
+- Fraud Risk: HIGH (0.80) - Red flags:
+  * Recent policy (<30 days)
+  * Extremely vague description
+  * No incident date/location
+  * Strategic amount (just under €10k threshold)
+  * Minimal effort
+- Route: SIU-Investigation
+- Template: D
+- Priority: 1
+
+---
+
+## TEST 12: Inconsistent Story + Exaggerated Language - MEDIUM-HIGH FRAUD RISK
+```
+Geachte heer/mevrouw,
+
+TOTALE RAMP! Complete vernietiging van mijn auto! Alles kapot! Ik ben TOTAAL in 
+paniek! Dit is de ERGSTE dag van mijn leven! ONGELOOFLIJK wat er gebeurd is!
+
+Er is iets gebeurd met mijn auto (weet niet meer precies wat), maar de schade is 
+ENORM! Althans, ik denk dat het best veel is.
+
+Schatting: ongeveer €350
+
+Polisnummer: AUTO-2024-88888
+Datum: een paar dagen geleden
+Locatie: bij mijn huis, geloof ik
+
+Dit is echt verschrikkelijk! Jullie MOETEN dit vergoeden!
+
+Met vriendelijke groet,
+K. Smith
+```
+
+**Expected Routing:**
+- Type: Auto (confidence: 0.70)
+- Amount: €350
+- Urgency: Low (despite emotional language)
+- Fraud Risk: MEDIUM-HIGH (0.55) - Red flags:
+  * Language vs amount massive mismatch
+  * "Total destruction" but only €350
+  * Very vague details despite dramatic tone
+  * No concrete information
+- Route: Standard-Adjuster (with fraud flag)
+- Template: B
+- Manual review recommended
+
+---
+
+## TEST 13: No Details + Missing Evidence + Suspicious Timing - HIGH FRAUD RISK
+```
+Beste verzekering,
+
+Mijn laptop is gestolen uit mijn auto afgelopen weekend.
+
+Laptop waarde: €2.400
+Polis: INBO-2025-777 (afgesloten op 15 september)
+Incident: 23 september
+
+Geen aangifte gedaan.
+Geen getuigen.
+Weet niet meer precies waar geparkeerd.
+Laptop was nieuw (vorige week gekocht) maar heb geen bonnetje.
+
+Graag snel vergoeden.
+
+Groet,
+J. Bakker
+```
+
+**Expected Routing:**
+- Type: Inboedel (confidence: 0.75)
+- Amount: €2,400
+- Urgency: Low
+- Fraud Risk: HIGH (0.70) - Red flags:
+  * Policy only 8 days old when incident occurred
+  * No police report
+  * No receipt for expensive item
+  * No location details
+  * Very convenient timing
+  * Multiple critical details missing
+- Route: SIU-Investigation
+- Template: D
+- Priority: 1
+
+---
+
+## TEST 14: Repeat Claimer Pattern - MEDIUM FRAUD RISK
+```
+Geachte heer/mevrouw,
+
+Weer schade aan mijn auto. Dit is nu alweer de vierde keer dit jaar dat ik 
+schade claim. Ik heb echt heel veel pech dit jaar!
+
+Deze keer: aanrijding op parkeerplaats, andere auto tegen mijn auto aangereden 
+en doorgereden. Net als de vorige 3 keer helaas geen kenteken.
+
+Schade: €2.800
+
+Details:
+- Polisnummer: AUTO-2024-33333
+- Datum: 28 september 2025
+- Locatie: Parkeerplaats winkelcentrum, Almere
+- Kenteken: JJ-444-KK
+
+Geen getuigen, zoals gebruikelijk.
+
+Ik hoop dat dit sneller gaat dan de vorige claims, want die duurden lang.
+
+Met vriendelijke groet,
+Mark Peters
+mark.peters@email.nl
+```
+
+**Expected Routing:**
+- Type: Auto (confidence: 0.90)
+- Amount: €2,800
+- Urgency: Low
+- Fraud Risk: MEDIUM (0.45) - Red flags:
+  * Self-reported as "4th claim this year"
+  * Pattern of hit-and-run claims with no witnesses
+  * Mentions previous claims took long (possible frustration fraud)
+  * No witnesses again
+- Route: Standard-Adjuster (with fraud flag)
+- Template: B
+- Flag for pattern review
+
+---
+
+## TEST 15: Extreme Red Flags Combination - VERY HIGH FRAUD RISK
+```
+Hoi,
+
+Schade.
+
+€9.999
+
+AUTO-2025-X1 (polis 1 week oud)
+
+Gebeurd.
+
+Betaal nu.
+```
+
+**Expected Routing:**
+- Type: Auto (confidence: 0.40) - Almost no info
+- Amount: €9,999
+- Urgency: Low
+- Fraud Risk: VERY HIGH (0.95) - Red flags:
+  * Extremely recent policy (1 week)
+  * Strategic amount (€1 under €10k threshold)
+  * Absolute minimum effort (3-word sentences)
+  * No details whatsoever
+  * Demanding immediate payment
+  * No incident date/location/description
+  * No contact information
+  * Suspicious lack of normal communication
+- Route: SIU-Investigation
+- Template: D
+- Priority: 1
+- Requires manager approval: Yes
+- Block auto-payment
