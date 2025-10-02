@@ -3,11 +3,19 @@ Agent 3: Fraud Risk Detector
 
 Assesses fraud risk based on textual patterns, completeness, and inconsistencies.
 Works WITHOUT database access - purely text-based analysis.
+
+Uses OpenAI GPT-5 via official SDK with Pydantic validation.
 """
 
-from crewai import Agent, Task
-from config import AGENT_CONFIG, AGENT_SETTINGS
-from models import FraudRiskAnalysis
+from openai import OpenAI
+import json
+import os
+from dotenv import load_dotenv
+from pydantic import ValidationError
+from models import FraudRiskOutput
+
+# Load environment variables from .env file
+load_dotenv()
 
 
 class FraudRiskDetectorAgent:
@@ -15,38 +23,26 @@ class FraudRiskDetectorAgent:
     Agent 3: Detects fraud risk patterns in claims
     
     Specialization: Pattern-based fraud detection from text only
-    Output: FraudRiskAnalysis (Pydantic model)
+    Output: FraudRiskOutput (Pydantic validated)
     """
     
     def __init__(self):
-        """Initialize the fraud risk detector agent"""
-        self.agent = self._create_agent()
+        """Initialize with OpenAI client"""
+        self.client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+        self.model = "gpt-5"
     
-    def _create_agent(self) -> Agent:
-        """Create the CrewAI agent with configuration"""
-        config = AGENT_CONFIG["fraud_risk_detector"]
-        
-        return Agent(
-            role=config["role"],
-            goal=config["goal"],
-            backstory=config["backstory"],
-            verbose=AGENT_SETTINGS["verbose"],
-            allow_delegation=AGENT_SETTINGS["allow_delegation"],
-            llm=AGENT_SETTINGS["llm"]
-        )
-    
-    def create_task(self, claim_text: str) -> Task:
+    def analyze(self, claim_text: str) -> dict:
         """
-        Create a fraud risk detection task
+        Detect fraud risk from claim
         
         Args:
-            claim_text: The insurance claim text to analyze
+            claim_text: The insurance claim text
             
         Returns:
-            Task: CrewAI task object
+            dict: Validated {risk_score, risk_level, red_flags, ...}
         """
         
-        description = f"""
+        prompt = f"""
         TAAK: Analyseer deze verzekeringsclaim op frauderisico ZONDER database access.
         Je werkt ALLEEN met wat in de tekst staat.
         
@@ -78,11 +74,6 @@ class FraudRiskDetectorAgent:
         - "Een beetje schade", "iets kapot"
         - Geen concrete omschrijving van wat er gebeurd is
         
-        Bij autoschade specifiek:
-        - Geen kenteken
-        - Geen andere partij info (bij aanrijding)
-        - Geen politie rapport nummer (bij diefstal)
-        
         ═══════════════════════════════════════════════════════════════
         2. TIMING SIGNALEN (0-0.3 punten)
         ═══════════════════════════════════════════════════════════════
@@ -91,13 +82,11 @@ class FraudRiskDetectorAgent:
         - "Polis net afgesloten"
         - "Vorige week contract"
         - "Pas verzekerd sinds..."
-        - Melding van polis < 30 dagen oud
         
         **Herhaalde claims melding** (+0.20):
         - "Dit is alweer de Xe keer dit jaar"
         - "Weer schade"
         - "Opnieuw een claim"
-        - Suggestie van frequent claimen
         
         ═══════════════════════════════════════════════════════════════
         3. BEDRAG POSITIONERING (0-0.2 punten)
@@ -108,21 +97,18 @@ class FraudRiskDetectorAgent:
           - €9.900 - €9.999 (net onder €10k)
           - €24.500 - €24.999 (net onder €25k)
           - €740 - €749 (net onder €750 auto-approve)
-        - Opvallend precieze bedragen zonder onderbouwing
         
         ═══════════════════════════════════════════════════════════════
         4. INCONSISTENTIES (0-0.3 punten)
         ═══════════════════════════════════════════════════════════════
         
         **Taal vs Bedrag mismatch** (+0.15):
-        - "Totale ramp", "alles kapot", "complete vernietiging" + klein bedrag (€200)
+        - "Totale ramp", "alles kapot" + klein bedrag (€200)
         - Zeer emotionele taal voor kleine schade
-        - Minimaliserende taal voor hoog bedrag
         
         **Tegenstrijdige statements** (+0.25):
         - "Geen getuigen" maar later "iemand heeft het gezien"
-        - Tijdstippen die niet kloppen
-        - Inconsistente beschrijvingen in dezelfde claim
+        - Inconsistente beschrijvingen
         
         ═══════════════════════════════════════════════════════════════
         RISK SCORE BEREKENING
@@ -146,65 +132,79 @@ class FraudRiskDetectorAgent:
         - **Medium** (0.3 - 0.6): Enkele zorgen, manual review aanbevolen
         - **High** (0.6 - 1.0): Meerdere rode vlaggen, SIU investigation
         
-        ═══════════════════════════════════════════════════════════════
-        RECOMMENDATION
-        ═══════════════════════════════════════════════════════════════
-        
-        Gebaseerd op risk_level:
-        - Low: "Auto-approve mogelijk (bij andere criteria OK)"
-        - Medium: "Manual review aanbevolen"
-        - High: "SIU investigation vereist"
-        
         OUTPUT FORMAT (JSON):
-        Geef ALLEEN een JSON object terug in dit exacte format:
         
         {{
             "risk_score": 0.25,
-            "risk_level": "Low" | "Medium" | "High",
+            "risk_level": "Low",
             "red_flags": [
-                "Geen incident datum vermeld",
-                "Recent afgesloten polis gemeld"
+                "Geen incident datum vermeld"
             ],
             "suspicious_patterns": [
-                "Vage beschrijving zonder details",
-                "Strategisch bedrag net onder threshold"
+                "Vage beschrijving zonder details"
             ],
-            "recommendation": "Auto-approve mogelijk (bij andere criteria OK)" | 
-                            "Manual review aanbevolen" | 
-                            "SIU investigation vereist",
-            "reasoning": "Gedetailleerde uitleg: welke checks zijn uitgevoerd, 
-                         welke patronen zijn gedetecteerd, hoe de score is opgebouwd,
-                         waarom wel/geen rode vlaggen, en de totale risk assessment."
+            "recommendation": "Auto-approve mogelijk (bij andere criteria OK)",
+            "reasoning": "Gedetailleerde uitleg hoe score is opgebouwd."
         }}
-        
-        BELANGRIJK VOOR SCORE BUILDING:
-        
-        ✅ BIJ NORMALE CLAIMS:
-        - Volledige details aanwezig → 0 punten completeness
-        - Geen timing signalen → 0 punten timing
-        - Normaal bedrag → 0 punten amount
-        - Geen inconsistenties → 0 punten inconsistencies
-        - **TOTAAL: 0.0-0.2 (Low risk)**
-        
-        ⚠️ BIJ VERDACHTE CLAIMS:
-        - Meerdere details ontbreken → 0.3-0.4 punten
-        - Timing red flags → +0.2-0.25 punten
-        - Strategisch bedrag → +0.2 punten
-        - Inconsistenties → +0.15-0.25 punten
-        - **TOTAAL: 0.6+ (High risk)**
         
         BELANGRIJK:
         - Wees NIET paranoia - normale claims krijgen lage scores
         - Wees WEL alert - echte red flags moet je oppakken
-        - red_flags lijst bevat specifieke problemen gevonden
-        - suspicious_patterns zijn subtielere zorgen
-        - reasoning moet helder uitleggen hoe je tot de score komt
+        - risk_level moet exact één van: Low, Medium, High
         
         Geef ALLEEN het JSON object terug, geen extra tekst.
         """
         
-        return Task(
-            description=description,
-            agent=self.agent,
-            expected_output="JSON object met fraud risk analysis volgens FraudRiskAnalysis model"
-        )
+        try:
+            # Get LLM response
+            response = self.client.responses.create(
+                model=self.model,
+                reasoning={"effort": "medium"},  # Fraud needs more thinking
+                input=prompt
+            )
+            
+            # Extract text from response
+            output_text = response.output_text
+            
+            # Clean and parse JSON
+            output_text = output_text.strip()
+            if output_text.startswith('```json'):
+                output_text = output_text[7:]
+            if output_text.startswith('```'):
+                output_text = output_text[3:]
+            if output_text.endswith('```'):
+                output_text = output_text[:-3]
+            output_text = output_text.strip()
+            
+            # Parse JSON
+            result_dict = json.loads(output_text)
+            
+            # Validate with Pydantic
+            validated = FraudRiskOutput(**result_dict)
+            
+            # Return as dict (backward compatible)
+            return validated.model_dump()
+            
+        except ValidationError as e:
+            print(f"⚠️ Agent 3 Validation Error: {e}")
+            # Return safe fallback
+            return FraudRiskOutput(
+                risk_score=0.5,
+                risk_level="Medium",
+                red_flags=[],
+                suspicious_patterns=[],
+                recommendation="Manual review aanbevolen",
+                reasoning=f"Validation error: {str(e)}"
+            ).model_dump()
+            
+        except Exception as e:
+            print(f"⚠️ Agent 3 Error: {e}")
+            # Return safe fallback
+            return FraudRiskOutput(
+                risk_score=0.5,
+                risk_level="Medium",
+                red_flags=[],
+                suspicious_patterns=[],
+                recommendation="Manual review aanbevolen",
+                reasoning=f"Error: {str(e)}"
+            ).model_dump()
