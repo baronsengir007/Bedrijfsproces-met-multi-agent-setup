@@ -1,0 +1,43 @@
+# TEST 18: International Incident - Outside Netherlands
+
+```
+Geachte heer/mevrouw,
+
+Tijdens mijn vakantie in Duitsland (vorige week) ben ik betrokken geraakt bij 
+een verkeersongeval. Een Duitse automobilist heeft mijn auto van achteren 
+aangereden op de Autobahn.
+
+Schade aan mijn auto: €3.400
+Locatie: A3 bij Frankfurt, Duitsland
+Datum: 22 september 2025, circa 15:00 uur
+
+De Duitse politie heeft een rapport opgemaakt.
+Duitse politie rapportnummer: DE-2025-9988
+Andere partij: Klaus Müller, Duitse kenteken: F-AB-1234
+Duitse verzekering andere partij: Allianz Deutschland
+
+Mijn Nederlandse gegevens:
+- Polisnummer: AUTO-2024-66666
+- Kenteken: LL-777-MM
+- Groene kaart meegenomen (wel geldig voor Duitsland)
+
+Ik ben inmiddels terug in Nederland. De auto is nog rijdbaar maar heeft wel 
+duidelijke schade aan achterbumper en kofferbak.
+
+Hoe moet ik dit claimen? Via de Duitse verzekering van de veroorzaker of via 
+jullie?
+
+Met vriendelijke groet,
+Anna Verhoeven
+anna.verhoeven@email.nl
+06-33445566
+```
+
+**Expected Routing:**
+- Type: Auto (confidence: 0.95)
+- Amount: €3,400
+- Urgency: Medium
+- Fraud Risk: Low (0.20)
+- Route: Standard-Adjuster (requires international claim handling)
+- Template: B
+- Note: International claim - special handling

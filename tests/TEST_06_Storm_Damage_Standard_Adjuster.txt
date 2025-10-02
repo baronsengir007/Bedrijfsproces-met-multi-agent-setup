@@ -1,0 +1,43 @@
+# TEST 6: Storm Damage - Medium Value - Should route to STANDARD ADJUSTER
+
+```
+Geachte heer/mevrouw,
+
+Door de hevige storm van afgelopen zondag 24 september is er schade ontstaan 
+aan het dak van mijn woning. Meerdere dakpannen zijn van het dak gewaaid en er 
+is lekkage ontstaan in de slaapkamer.
+
+Schade:
+- 15 dakpannen vervangen
+- Lekkage in slaapkamer (plafond beschadigd)
+- Waterschade aan vloerbedekking
+
+Geschatte schade: €4.500
+
+Details:
+- Polisnummer: WOON-2024-22222
+- Adres: Kerkstraat 67, Zwolle
+- Datum storm: 24 september 2025
+- Type woning: Rijtjeshuis, bouwjaar 1985
+
+Ik heb de dakpannen provisorisch laten afdekken met zeilen door een aannemer 
+om verdere lekkage te voorkomen. Kosten provisorische reparatie: €350.
+
+Het KNMI had voor die dag code oranje afgegeven voor windstoten tot 100 km/u.
+
+Ik heb foto's gemaakt van de schade en de provisorische afdekking.
+
+Met vriendelijke groet,
+Petra Jansen
+petra.jansen@email.nl
+038-1234567
+```
+
+**Expected Routing:**
+- Type: Woning (confidence: 0.95)
+- Amount: €4,850
+- Urgency: Medium
+- Fraud Risk: Low (0.15) - Weather event verified
+- Route: Standard-Adjuster
+- Template: B
+- May require inspection

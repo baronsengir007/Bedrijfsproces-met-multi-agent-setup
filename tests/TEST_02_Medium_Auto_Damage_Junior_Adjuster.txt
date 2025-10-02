@@ -1,0 +1,35 @@
+# TEST 2: Medium Auto Damage - Should route to JUNIOR ADJUSTER
+
+```
+Geachte heer/mevrouw,
+
+Afgelopen dinsdag 26 september ben ik aangereden door een andere auto op de 
+parkeerplaats bij mijn werk. De andere bestuurder heeft mijn linker portier en 
+spatbord geraakt tijdens het uitparkeren.
+
+Geschatte schade: €1.800 (portier + spatbord + lak)
+Polisnummer: AUTO-2024-67890
+Datum: 26 september 2025, rond 17:30
+Locatie: Bedrijventerrein Zuid, Utrecht
+Kenteken mijn auto: BB-456-CC
+Kenteken andere auto: XX-789-YY
+
+De andere bestuurder heeft zijn gegevens achtergelaten:
+Naam: Piet de Vries
+Telefoon: 06-98765432
+Verzekeraar: Andere Verzekering BV
+
+Er is geen politierapport, want schade was beperkt en beide partijen waren het eens.
+
+Met vriendelijke groet,
+Maria van Dam
+maria.vandam@bedrijf.nl
+```
+
+**Expected Routing:**
+- Type: Auto (confidence: 0.98)
+- Amount: €1,800
+- Urgency: Medium
+- Fraud Risk: Low (0.15)
+- Route: Junior-Adjuster
+- Template: B

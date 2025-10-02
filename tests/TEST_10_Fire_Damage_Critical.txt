@@ -1,0 +1,57 @@
+# TEST 10: Fire Damage - High Value - Critical - Should ESCALATE
+
+```
+SPOED - BRAND IN WONING
+
+Geachte heer/mevrouw,
+
+Vannacht om 01:30 is er brand uitgebroken in mijn woning door kortsluiting in 
+de meterkast. De brandweer heeft de brand kunnen blussen, maar de schade is enorm.
+
+Schade:
+- Meterkast volledig uitgebrand
+- Elektrische installatie gehele woning defect
+- Rook- en roetschade in alle kamers
+- Keuken zwaar beschadigd
+- Meubels in woonkamer en keuken onherstelbaar
+- Plafonds en muren beschadigd
+
+Geschatte schade: €65.000
+
+Woning is op dit moment ONBEWOONBAAR verklaard door gemeente.
+
+Details:
+- Polisnummer: WOON-2024-11111
+- Adres: Bosstraat 34, Groningen
+- Datum: 1 oktober 2025, 01:30 uur
+- Type woning: Appartement, 3e verdieping
+- Brandweerrapport: BR-2025-6666
+
+URGENTE SITUATIE:
+- Woning onveilig en onbewoonbaar
+- Geen elektriciteit
+- Mogelijk structurele schade aan gebouw
+- Ik sta letterlijk op straat met mijn gezin (2 jonge kinderen)
+
+Wij verblijven nu in een hotel maar kunnen dit maximaal paar dagen betalen.
+Is er dekking voor tijdelijke huisvesting?
+
+Graag VANDAAG NOG contact voor noodopvang regeling en expert voor schadeop name.
+
+Met vriendelijke groet,
+Linda Hermans
+linda.hermans@email.nl
+050-1122334
+```
+
+**Expected Routing:**
+- Type: Woning (confidence: 0.99)
+- Amount: €65,000
+- Urgency: Critical
+- Has Immediate Danger: No (fire is out, but uninhabitable)
+- Fraud Risk: Low (0.15) - Fire department report present
+- Route: Senior-Adjuster-High-Value
+- Template: D
+- Priority: 1
+- Requires Inspection: Yes
+- Requires Manager Approval: Yes

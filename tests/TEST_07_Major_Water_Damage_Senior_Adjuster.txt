@@ -1,0 +1,54 @@
+# TEST 7: Major Water Damage - High Value - Should route to SENIOR ADJUSTER
+
+```
+Geachte heer/mevrouw,
+
+DRINGEND - WATERSCHADE
+
+In de nacht van 29 op 30 september is er een grote waterleiding gesprongen in 
+mijn woning, waardoor de gehele begane grond onder water is komen te staan. De 
+loodgieter heeft de waterleiding kunnen afdichten, maar de schade is aanzienlijk.
+
+Schade overzicht:
+- Gehele houten vloer begane grond (laminaat, 60m²)
+- Keukenkastjes onderin doorweekt
+- Bank en 2 fauteuils onherstelbaar beschadigd
+- Wasmachine en droger defect door water
+- Elektrische installatie benedenverdieping moet vervangen
+
+Geschatte totale schade: €24.000
+
+Details:
+- Polisnummer: WOON-2024-77777
+- Adres: Lindelaan 123, Arnhem
+- Datum incident: 30 september 2025, circa 02:00 uur
+- Type woning: Vrijstaand, bouwjaar 2010
+
+De loodgieter heeft aangegeven dat de leiding door corrosie is gesprongen.
+Loodgieter: Installatiebedrijf Jansen BV
+Factuur loodgieter: €850 (noodreparatie)
+
+De schade is acuut omdat:
+- Vocht in de muren kan schimmel veroorzaken
+- Elektrische installatie onveilig
+- Woning momenteel onbewoonbaar benedenverdieping
+
+Ik verblijf tijdelijk bij familie. Is er dekking voor tijdelijke huisvesting?
+
+Graag snel een expert langs voor opname van de schade.
+
+Met vriendelijke groet,
+Robert van Dijk
+robert.vandijk@email.nl
+026-9876543
+```
+
+**Expected Routing:**
+- Type: Woning (confidence: 0.98)
+- Amount: €24,850
+- Urgency: High
+- Fraud Risk: Low (0.20)
+- Route: Senior-Adjuster
+- Template: C
+- Requires Inspection: Yes
+- Priority: 2

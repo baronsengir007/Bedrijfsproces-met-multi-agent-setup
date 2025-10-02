@@ -1,0 +1,40 @@
+# TEST 17: Unclear Type - Mixed Damage - Should Flag for Manual Classification
+
+```
+Beste verzekering,
+
+Er is iets gebeurd met schade. Ik weet niet precies welke verzekering dit dekt.
+
+Er is water in mijn auto gekomen door een daklek in de parkeergarage van mijn 
+appartement. De binnenkant van mijn auto is doorweekt (bekleding, matten) EN 
+de dakpannen van de garage zijn beschadigd, waar ik ook verantwoordelijk voor 
+ben als eigenaar.
+
+Schade auto interieur: €800
+Schade dakpannen garage: €1.200
+Totaal: €2.000
+
+Is dit mijn autoverzekering of mijn woonhuisverzekering? Of beide?
+
+Details:
+- Auto polis: AUTO-2024-77777
+- Woning polis: WOON-2024-88888
+- Datum: 25 september 2025 (na zware regenval)
+- Adres: Appartementscomplex De Wilgen, Rotterdam
+
+Graag advies over hoe dit te claimen.
+
+Met vriendelijke groet,
+Eric de Jong
+eric.dejong@email.nl
+010-2345678
+```
+
+**Expected Routing:**
+- Type: Unclear/Mixed (confidence: 0.45) - Involves both auto and property
+- Amount: €2,000
+- Urgency: Low
+- Fraud Risk: Low (0.15)
+- Route: Manual-Classification
+- Template: B
+- Flag: Type unclear - needs manual review

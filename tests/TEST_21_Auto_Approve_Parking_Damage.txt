@@ -1,0 +1,35 @@
+# TEST 21: Perfect Auto-Approve Case #1 - Minor Parking Damage
+
+```
+Beste verzekering,
+
+Kleine kras op mijn bumper door een winkelwagentje op de parkeerplaats.
+
+Schade: €380
+Polisnummer: AUTO-2024-11111
+Datum: 30 september 2025
+Locatie: Jumbo parkeerplaats, Utrecht
+Kenteken: AA-111-BB
+
+Foto's bijgevoegd.
+
+Met vriendelijke groet,
+Jan Pietersen
+jan.pietersen@email.nl
+```
+
+**Expected Routing:**
+- Type: Auto (confidence: 0.95)
+- Amount: €380
+- Urgency: Low
+- Fraud Risk: Low (0.10)
+- ✅ AUTO-APPROVE CRITERIA MET:
+  * Amount < €750 ✓
+  * Fraud risk < 0.3 ✓
+  * Type confidence > 0.8 ✓
+  * Not total loss ✓
+  * Not critical urgency ✓
+  * No red flags ✓
+- Route: Auto-Approve
+- Template: A
+- SLA: 2 hours

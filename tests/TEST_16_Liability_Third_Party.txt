@@ -1,0 +1,45 @@
+# TEST 16: Liability Claim - Damage Caused to Third Party
+
+```
+Geachte heer/mevrouw,
+
+Ik heb per ongeluk schade veroorzaakt aan de auto van mijn buurman. Tijdens het 
+uitparkeren op mijn oprit heb ik zijn auto geraakt die naast mijn oprit geparkeerd 
+stond.
+
+Schade aan auto buurman:
+- Linker portier flinke deuk
+- Zijspiegel gebroken
+
+Geschatte schade: €1.850
+
+Details:
+- Mijn polisnummer: WA-2024-55555
+- Datum incident: 27 september 2025
+- Locatie: Eigen oprit, Dennenlaan 45, Haarlem
+- Mijn kenteken: PP-555-RR
+- Kenteken buurman: QQ-666-SS
+
+Mijn buurman (Henk Vermeer, Dennenlaan 43) heeft aangifte gedaan bij zijn 
+verzekering en doorverwezen naar mij/mijn WA verzekering.
+
+Contactgegevens buurman: henk.vermeer@email.nl, 023-6789012
+
+Ik neem volledige verantwoordelijkheid voor de schade. Het was een ongelukje 
+tijdens het achteruitrijden.
+
+Graag verneem ik hoe de procedure verder gaat.
+
+Met vriendelijke groet,
+Sandra Willems
+sandra.willems@email.nl
+023-5678901
+```
+
+**Expected Routing:**
+- Type: Aansprakelijkheid (confidence: 0.95)
+- Amount: €1,850
+- Urgency: Medium
+- Fraud Risk: Low (0.10) - Takes full responsibility, clear details
+- Route: Standard-Adjuster
+- Template: B

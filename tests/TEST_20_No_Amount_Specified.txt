@@ -1,0 +1,40 @@
+# TEST 20: No Amount Specified - Information Needed
+
+```
+Geachte heer/mevrouw,
+
+Ik wil graag een claim indienen voor schade aan mijn auto, maar ik weet nog niet 
+precies hoeveel de schade gaat kosten. De garage moet de auto nog opnemen.
+
+Wat er gebeurd is:
+Op 28 september ben ik tijdens het parkeren tegen een betonnen paal gereden. 
+Er is schade aan de voorbumper, koplamp en mogelijk ook aan de radiateur (de 
+garage vermoedt dit).
+
+Details:
+- Polisnummer: AUTO-2024-22222
+- Kenteken: OO-123-PP
+- Datum: 28 september 2025
+- Locatie: Parkeergarage Centraal Station, Den Haag
+
+De garage (Autobedrijf Jansen, Den Haag) gaat volgende week dinsdag de auto 
+onderzoeken en zal dan een offerte maken.
+
+Kan ik de claim alvast indienen zonder exact bedrag, en het bedrag later 
+aanvullen? Of moet ik wachten tot ik de offerte heb?
+
+Met vriendelijke groet,
+Fatima Aziz
+fatima.aziz@email.nl
+070-8765432
+```
+
+**Expected Routing:**
+- Type: Auto (confidence: 0.95)
+- Amount: None/Unknown
+- Urgency: Low
+- Fraud Risk: Low (0.15)
+- Route: Junior-Adjuster
+- Template: B
+- Note: Amount to be determined - follow-up needed
+- Action: Request customer to submit quote when available

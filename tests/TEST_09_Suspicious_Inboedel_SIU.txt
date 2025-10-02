@@ -1,0 +1,33 @@
+# TEST 9: Suspicious Inboedel Claim - Should route to SIU INVESTIGATION
+
+```
+Hallo,
+
+Inbraak gehad. Laptop weg.
+
+Schatting schade: €2.200
+
+Polis: INBO-2025-888 (2 weken geleden afgesloten)
+
+Was ergens, weet niet precies wanneer. Laptop was er ineens niet meer.
+Misschien vorige week? Of week daarvoor.
+
+Geen aangifte gedaan want heeft toch geen zin.
+
+Groet
+```
+
+**Expected Routing:**
+- Type: Inboedel (confidence: 0.70)
+- Amount: €2,200
+- Urgency: Low
+- Fraud Risk: HIGH (0.75) - Multiple red flags:
+  * Recent policy (<30 days mentioned)
+  * Extremely vague description
+  * No incident date
+  * No police report
+  * No details about circumstances
+  * Minimal effort in claim
+- Route: SIU-Investigation
+- Template: D
+- Requires manager approval: Yes

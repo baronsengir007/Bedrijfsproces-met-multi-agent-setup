@@ -1,0 +1,29 @@
+# TEST 25: Perfect Auto-Approve Case #5 - Paint Scratch
+
+```
+Geachte heer/mevrouw,
+
+Lakschade op mijn auto door een tak die tijdens storm op mijn auto viel.
+
+Geschatte schade: €425 (herlakken)
+Polisnummer: AUTO-2024-99999
+Datum: 24 september 2025 (tijdens storm)
+Locatie: Eigen oprit, Boslaan 34, Rotterdam
+Kenteken: JJ-999-KK
+
+KNMI had code geel afgegeven voor die dag.
+
+Met vriendelijke groet,
+Pieter de Vries
+pieter.devries@email.nl
+010-1234567
+```
+
+**Expected Routing:**
+- Type: Auto (confidence: 0.94)
+- Amount: €425
+- Urgency: Low
+- Fraud Risk: Low (0.09) - Storm verified by KNMI
+- ✅ AUTO-APPROVE
+- Route: Auto-Approve
+- Template: A

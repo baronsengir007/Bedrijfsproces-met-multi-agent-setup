@@ -1,0 +1,36 @@
+# TEST 13: No Details + Missing Evidence + Suspicious Timing - HIGH FRAUD RISK
+
+```
+Beste verzekering,
+
+Mijn laptop is gestolen uit mijn auto afgelopen weekend.
+
+Laptop waarde: €2.400
+Polis: INBO-2025-777 (afgesloten op 15 september)
+Incident: 23 september
+
+Geen aangifte gedaan.
+Geen getuigen.
+Weet niet meer precies waar geparkeerd.
+Laptop was nieuw (vorige week gekocht) maar heb geen bonnetje.
+
+Graag snel vergoeden.
+
+Groet,
+J. Bakker
+```
+
+**Expected Routing:**
+- Type: Inboedel (confidence: 0.75)
+- Amount: €2,400
+- Urgency: Low
+- Fraud Risk: HIGH (0.70) - Red flags:
+  * Policy only 8 days old when incident occurred
+  * No police report
+  * No receipt for expensive item
+  * No location details
+  * Very convenient timing
+  * Multiple critical details missing
+- Route: SIU-Investigation
+- Template: D
+- Priority: 1

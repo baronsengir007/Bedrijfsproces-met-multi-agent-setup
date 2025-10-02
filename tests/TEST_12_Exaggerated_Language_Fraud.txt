@@ -1,0 +1,35 @@
+# TEST 12: Inconsistent Story + Exaggerated Language - MEDIUM-HIGH FRAUD RISK
+
+```
+Geachte heer/mevrouw,
+
+TOTALE RAMP! Complete vernietiging van mijn auto! Alles kapot! Ik ben TOTAAL in 
+paniek! Dit is de ERGSTE dag van mijn leven! ONGELOOFLIJK wat er gebeurd is!
+
+Er is iets gebeurd met mijn auto (weet niet meer precies wat), maar de schade is 
+ENORM! Althans, ik denk dat het best veel is.
+
+Schatting: ongeveer €350
+
+Polisnummer: AUTO-2024-88888
+Datum: een paar dagen geleden
+Locatie: bij mijn huis, geloof ik
+
+Dit is echt verschrikkelijk! Jullie MOETEN dit vergoeden!
+
+Met vriendelijke groet,
+K. Smith
+```
+
+**Expected Routing:**
+- Type: Auto (confidence: 0.70)
+- Amount: €350
+- Urgency: Low (despite emotional language)
+- Fraud Risk: MEDIUM-HIGH (0.55) - Red flags:
+  * Language vs amount massive mismatch
+  * "Total destruction" but only €350
+  * Very vague details despite dramatic tone
+  * No concrete information
+- Route: Standard-Adjuster (with fraud flag)
+- Template: B
+- Manual review recommended

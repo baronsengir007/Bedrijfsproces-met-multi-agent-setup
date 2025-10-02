@@ -1,0 +1,49 @@
+# TEST 8: Inbraak - Inboedel - Should route to STANDARD ADJUSTER
+
+```
+Beste verzekering,
+
+Op dinsdag 26 september ben ik slachtoffer geworden van een inbraak in mijn 
+woning. De inbrekers zijn via het keukenraam naar binnen gekomen en hebben 
+verschillende waardevolle spullen gestolen.
+
+Gestolen voorwerpen:
+- Laptop MacBook Pro (2023): €2.400
+- iPad: €650
+- Gouden sieraden (ketting + armband): €1.800
+- Cash geld: €350
+- Twee parfumflesjes: €200
+
+Totale schade: €5.400
+
+Daarnaast schade aan keukenraam: €450
+
+Totaal: €5.850
+
+Details:
+- Polisnummer: INBOEDEL-2024-44444
+- Adres: Molenlaan 89, Utrecht
+- Datum inbraak: tussen 26 sept 14:00 en 18:30
+- Aangiftenummer politie: POL-2025-7777
+
+Ik heb aankoopbonnen van de laptop en iPad. Voor de sieraden heb ik foto's en 
+een taxatierapport van de juwelier (waarde getaxeerd in januari 2024).
+
+De politie heeft sporenonderzoek gedaan en vingerafdrukken veiliggesteld.
+
+Graag verneem ik welke documenten jullie nog nodig hebben en hoe de procedure 
+verder verloopt.
+
+Met vriendelijke groet,
+Sophie Vermeulen
+sophie.vermeulen@email.nl
+030-3456789
+```
+
+**Expected Routing:**
+- Type: Inboedel (confidence: 0.98)
+- Amount: €5,850
+- Urgency: Medium
+- Fraud Risk: Medium (0.35) - Burglary claims have elevated baseline risk
+- Route: Standard-Adjuster
+- Template: B

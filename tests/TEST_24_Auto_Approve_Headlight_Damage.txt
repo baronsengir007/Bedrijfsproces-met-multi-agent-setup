@@ -1,0 +1,28 @@
+# TEST 24: Perfect Auto-Approve Case #4 - Headlight Damage
+
+```
+Beste verzekering,
+
+Koplamp kapot door steen die opspatte tijdens rijden op de snelweg.
+
+Schade koplamp: €680
+Polisnummer: AUTO-2024-77777
+Datum: 29 september 2025, A28 bij Zwolle
+Kenteken: GG-777-HH
+
+Garage heeft offerte gemaakt die ik kan toesturen.
+
+Met vriendelijke groet,
+Emma Visser
+emma.visser@email.nl
+038-9876543
+```
+
+**Expected Routing:**
+- Type: Auto (confidence: 0.93)
+- Amount: €680
+- Urgency: Low
+- Fraud Risk: Low (0.11)
+- ✅ AUTO-APPROVE
+- Route: Auto-Approve
+- Template: A

@@ -1,0 +1,44 @@
+# TEST 5: Hit-and-Run - Medium Complexity - Should route to STANDARD ADJUSTER
+
+```
+Beste verzekering,
+
+Afgelopen weekend heb ik mijn auto geparkeerd op straat (zaterdag 23 september 
+om 20:00) en zondag 24 september om 10:00 bleek dat een andere auto tegen mijn 
+auto was aangereden en was doorgereden.
+
+Schade:
+- Rechter achterlicht verbrijzeld
+- Bumper beschadigd
+- Spatbord deuk
+
+Geschatte schade: €3.200
+
+Details:
+- Polisnummer: AUTO-2024-55555
+- Kenteken: HH-222-JJ
+- Locatie: Parkeerplaats Stationsstraat, Den Haag
+- Tijdstip: tussen zaterdagavond 20:00 en zondagochtend 10:00
+
+Ik heb aangifte gedaan bij de politie omdat de dader is doorgereden.
+Aangiftenummer: AG-2025-3333
+
+Een buurtbewoner heeft mogelijk iets gezien, maar heeft geen kenteken genoteerd.
+Ik heb foto's gemaakt van de schade.
+
+Graag verneem ik hoe de procedure verder gaat en of jullie de schade vergoeden 
+ondanks dat de dader onbekend is.
+
+Met vriendelijke groet,
+Ahmed Hassan
+ahmed.hassan@email.nl
+06-99887766
+```
+
+**Expected Routing:**
+- Type: Auto (confidence: 0.92)
+- Amount: €3,200
+- Urgency: Medium
+- Fraud Risk: Low (0.25) - Slightly elevated due to no witnesses
+- Route: Standard-Adjuster
+- Template: B

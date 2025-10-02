@@ -1,0 +1,29 @@
+# TEST 22: Perfect Auto-Approve Case #2 - Mirror Damage
+
+```
+Geachte heer/mevrouw,
+
+Mijn zijspiegel is afgebroken door een fietser die er tegenaan reed.
+
+Geschatte schade: €520 (nieuwe spiegel + montage)
+Polisnummer: AUTO-2024-33333
+Datum incident: 28 september 2025, rond 14:00 uur
+Locatie: Hoofdstraat 89, Groningen
+Kenteken: CC-333-DD
+
+De fietser heeft zijn excuses aangeboden maar geen verzekering. Ik heb zijn 
+gegevens voor het geval het nodig is.
+
+Met vriendelijke groet,
+Lisa van den Berg
+lisa.vandenberg@email.nl
+```
+
+**Expected Routing:**
+- Type: Auto (confidence: 0.92)
+- Amount: €520
+- Urgency: Low
+- Fraud Risk: Low (0.12)
+- ✅ AUTO-APPROVE
+- Route: Auto-Approve
+- Template: A

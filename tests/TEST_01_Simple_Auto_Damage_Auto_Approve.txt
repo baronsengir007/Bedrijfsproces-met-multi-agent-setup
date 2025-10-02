@@ -1,0 +1,30 @@
+# TEST 1: Simple Auto Damage - Should AUTO-APPROVE
+
+```
+Beste verzekering,
+
+Gisteren heb ik een kleine kras op mijn bumper gekregen door een winkelwagentje 
+op de parkeerplaats van de Albert Heijn in Amsterdam. De schade is minimaal, 
+alleen lakschade aan de achterbumper.
+
+Geschatte schade: ongeveer €450
+Polisnummer: AUTO-2024-12345
+Datum incident: 30 september 2025
+Kenteken: AA-123-BB
+Locatie: Albert Heijn parkeerplaats, Overtoom 123, Amsterdam
+
+Er waren geen getuigen, maar de schade is duidelijk zichtbaar.
+
+Met vriendelijke groet,
+Jan Janssen
+jan.janssen@email.nl
+06-12345678
+```
+
+**Expected Routing:**
+- Type: Auto (confidence: 0.95)
+- Amount: €450
+- Urgency: Low
+- Fraud Risk: Low (0.1)
+- Route: Auto-Approve
+- Template: A

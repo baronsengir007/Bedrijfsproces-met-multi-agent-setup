@@ -1,0 +1,29 @@
+# TEST 11: Recent Policy + Vague Details + Strategic Amount - HIGH FRAUD RISK
+
+```
+Hallo,
+
+Auto schade. Kras en deuk.
+
+Bedrag: €9.950
+
+Polis net afgesloten (3 weken geleden): AUTO-2025-NEW1
+
+Gebeurd ergens vorige week. Weet niet meer precies waar.
+
+Groet
+```
+
+**Expected Routing:**
+- Type: Auto (confidence: 0.60) - Limited info
+- Amount: €9,950
+- Urgency: Low
+- Fraud Risk: HIGH (0.80) - Red flags:
+  * Recent policy (<30 days)
+  * Extremely vague description
+  * No incident date/location
+  * Strategic amount (just under €10k threshold)
+  * Minimal effort
+- Route: SIU-Investigation
+- Template: D
+- Priority: 1

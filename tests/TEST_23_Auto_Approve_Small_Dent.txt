@@ -1,0 +1,27 @@
+# TEST 23: Perfect Auto-Approve Case #3 - Small Dent
+
+```
+Hallo,
+
+Deukje in mijn portier door een bal (kinderen speelden voetbal op straat).
+
+Schade: €290
+Polis: AUTO-2024-55555
+Datum: 27 september 2025
+Adres: Speelstraat 12, Almere
+Auto: EE-555-FF
+
+Geen politie nodig, gewoon ongelukje.
+
+Groeten,
+Mohammed Al-Rashid
+```
+
+**Expected Routing:**
+- Type: Auto (confidence: 0.88)
+- Amount: €290
+- Urgency: Low
+- Fraud Risk: Low (0.08)
+- ✅ AUTO-APPROVE
+- Route: Auto-Approve
+- Template: A

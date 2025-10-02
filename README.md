@@ -14,6 +14,36 @@ Dit systeem gebruikt 5 gespecialiseerde AI agents om schadeclaims te analyseren 
 
 ---
 
+## Waarom Custom Multi-Agent Architecture i.p.v. CrewAI?
+
+Deze implementatie gebruikt een **custom multi-agent architectuur** in plaats van frameworks zoals CrewAI of OpenAI Agents om de volgende redenen:
+
+### Performance & Efficiency
+1. **Echte parallelle executie**: Agents 1-3 draaien simultaan via `asyncio.gather()`, waardoor de verwerkingstijd met 66% vermindert vergeleken met sequentiële executie
+2. **Geen LLM voor routing**: Agent 4 gebruikt pure Python logica in plaats van een LLM call, wat €0.02 per claim bespaart en instant routing mogelijk maakt
+3. **Minimale overhead**: Geen framework abstractions die performance beïnvloeden
+
+### Controle & Transparantie  
+4. **Expliciete flow control**: De verwerkingsstappen zijn direct zichtbaar in code (`crew_setup_openai.py`), wat debugging en onderhoud vergemakkelijkt
+5. **Voorspelbaar gedrag**: Geen "black box" orchestratie door een framework
+6. **Pydantic validation**: Strenge type-checking op alle agent outputs
+
+### Use Case Specifiek
+Deze use case vereist **onafhankelijke parallelle analyse** zonder inter-agent communicatie:
+- Agent 1 classificeert alleen claim type & bedrag
+- Agent 2 analyseert alleen urgentie  
+- Agent 3 detecteert alleen fraude
+- Geen collaboration tussen agents nodig
+
+**Wanneer WEL CrewAI/OpenAI Agents gebruiken:**
+- Agents moeten met elkaar communiceren ("collaborative reasoning")
+- Dynamische task allocation is vereist
+- Built-in memory tussen agents nodig is
+
+Voor productie-ready insurance claim processing met strikte SLA's en kostencontrole is deze custom architectuur de optimale keuze.
+
+---
+
 ## Vereisten
 
 - **Docker Desktop** (voor containerized deployment)

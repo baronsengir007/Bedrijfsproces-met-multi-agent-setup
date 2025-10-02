@@ -1,0 +1,41 @@
+# TEST 3: High Value - Total Loss - Should route to SENIOR ADJUSTER
+
+```
+Geachte heer/mevrouw,
+
+Op 28 september 2025 ben ik betrokken geraakt bij een ernstig verkeersongeval 
+op de A2 ter hoogte van 's-Hertogenbosch. Een vrachtwagen is op mijn auto 
+ingereden, waardoor mijn auto total loss is. De auto is niet meer te repareren 
+en moet naar de sloop.
+
+Details:
+- Datum: 28 september 2025, 14:20 uur
+- Locatie: A2 richting Eindhoven, km 112
+- Polisnummer: AUTO-2024-11111
+- Kenteken: DD-888-EE
+- Merk/Model: Volkswagen Golf 2022
+- Cataloguswaarde: €28.000
+
+De vrachtwagen reed door rood licht en raakte mij in de zijkant. Ik heb gelukkig 
+alleen lichte verwondingen (nekklachten). De politie is ter plaatse geweest.
+
+Politierapport nummer: PL-2025-5678
+Andere partij: Transport BV, kenteken VV-123-TT
+Getuigen: 2 andere automobilisten hebben verklaring afgelegd
+
+Ik heb foto's gemaakt van de situatie en het wrak.
+
+Met vriendelijke groet,
+Thomas Bakker
+thomas.bakker@email.nl
+06-11223344
+```
+
+**Expected Routing:**
+- Type: Auto (confidence: 0.99)
+- Amount: €28,000
+- Urgency: High
+- Fraud Risk: Low (0.20)
+- Route: Senior-Adjuster
+- Template: C
+- Requires Inspection: Yes

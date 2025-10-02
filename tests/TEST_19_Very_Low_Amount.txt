@@ -1,0 +1,36 @@
+# TEST 19: Very Low Amount - Minor Claim - Should Still Process
+
+```
+Beste verzekering,
+
+Hele kleine schade aan mijn auto. Een fietser is tegen mijn geparkeerde auto 
+gevallen en heeft een klein krasje gemaakt op het portier.
+
+Geschatte schade: €120 (kleine lakkering)
+
+Details:
+- Polisnummer: AUTO-2024-44444
+- Datum: 29 september 2025
+- Locatie: Fietsenstalling bij station, Leiden
+- Kenteken: NN-888-PP
+
+De fietser heeft zijn excuses aangeboden en zijn gegevens gegeven, maar ik wil 
+dit liever via mijn eigen verzekering regelen om gedoe te voorkomen.
+
+Eigen risico is €150, dus dit wordt niet vergoed, begrijp ik. Maar ik wilde het 
+toch melden voor de administratie.
+
+Met vriendelijke groet,
+David Smit
+david.smit@email.nl
+071-9876543
+```
+
+**Expected Routing:**
+- Type: Auto (confidence: 0.90)
+- Amount: €120
+- Urgency: Low
+- Fraud Risk: Low (0.05)
+- Route: Junior-Adjuster (administrative processing)
+- Template: B
+- Note: Below deductible - for administrative record only

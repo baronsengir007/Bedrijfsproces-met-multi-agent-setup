@@ -1,0 +1,34 @@
+# TEST 15: Extreme Red Flags Combination - VERY HIGH FRAUD RISK
+
+```
+Hoi,
+
+Schade.
+
+€9.999
+
+AUTO-2025-X1 (polis 1 week oud)
+
+Gebeurd.
+
+Betaal nu.
+```
+
+**Expected Routing:**
+- Type: Auto (confidence: 0.40) - Almost no info
+- Amount: €9,999
+- Urgency: Low
+- Fraud Risk: VERY HIGH (0.95) - Red flags:
+  * Extremely recent policy (1 week)
+  * Strategic amount (€1 under €10k threshold)
+  * Absolute minimum effort (3-word sentences)
+  * No details whatsoever
+  * Demanding immediate payment
+  * No incident date/location/description
+  * No contact information
+  * Suspicious lack of normal communication
+- Route: SIU-Investigation
+- Template: D
+- Priority: 1
+- Requires manager approval: Yes
+- Block auto-payment

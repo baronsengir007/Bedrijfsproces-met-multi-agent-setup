@@ -1,0 +1,48 @@
+# TEST 4: Critical Urgency - Immediate Danger - Should ESCALATE
+
+```
+URGENT - ACUTE SITUATIE
+
+Geachte heer/mevrouw,
+
+Mijn auto is vannacht in brand gevlogen op de oprit van mijn huis. De brandweer 
+is ter plaatse geweest en heeft de brand geblust, maar er bestaat gevaar dat de 
+auto opnieuw kan ontbranden. De brandweer heeft geadviseerd de auto direct te 
+laten weghalen.
+
+Datum incident: 1 oktober 2025, 03:30 uur
+Locatie: Hoofdstraat 45, Rotterdam
+Polisnummer: AUTO-2024-99999
+Kenteken: FF-999-GG
+Merk: Tesla Model 3 (elektrisch)
+
+De oorzaak is waarschijnlijk een defect in het elektrische systeem. Er is ook 
+schade aan mijn garagedeur (€2.000) en tuinmeubilair (€500).
+
+Auto totale schade: €45.000 (total loss)
+Extra schade: €2.500
+
+Brandweerrapport nummer: BW-2025-8888
+
+De situatie is urgent omdat:
+1. Risico op hernieuwde brand
+2. Blokkering van oprit
+3. Mogelijk gevaar voor andere voertuigen
+
+Graag zo snel mogelijk contact voor berging en verdere afhandeling.
+
+Met vriendelijke groet,
+Lisa Vermeer
+lisa.vermeer@email.nl
+06-55667788
+```
+
+**Expected Routing:**
+- Type: Auto (confidence: 0.95)
+- Amount: €47,500
+- Urgency: Critical
+- Fraud Risk: Low (0.15)
+- Has Immediate Danger: Yes
+- Route: Senior-Adjuster-Emergency
+- Template: D
+- Priority: 1
